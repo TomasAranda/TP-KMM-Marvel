@@ -1,12 +1,9 @@
-package com.unlam.marvel
+package ar.edu.unlam.marvel
 
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -14,17 +11,18 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import com.unlam.marvel.databinding.ActivityMainBinding
+import ar.edu.unlam.shared.Character
+import ar.edu.unlam.marvel.databinding.ActivityCharactersBinding
+
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class CharactersActivity : AppCompatActivity() {
 
     private lateinit var charactersAdapter: CharactersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding = ActivityCharactersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Setup del listado
@@ -36,9 +34,8 @@ class MainActivity : AppCompatActivity() {
             this.addItemDecoration(VerticalSpaceItemDecoration(16))
         }
 
-        // Listen to Retrofit response
-        val viewModel =
-            ViewModelProvider(this, CharactersViewModelFactory())[CharactersViewModel::class.java]
+        // Listen to Ktor response
+        val viewModel = ViewModelProvider(this, CharactersViewModelFactory())[CharactersViewModel::class.java]
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.screenState.collect {
@@ -58,4 +55,12 @@ class MainActivity : AppCompatActivity() {
     private fun showCharacters(list: List<Character>) {
         charactersAdapter.submitList(list)
     }
+}
+
+class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) : ItemDecoration() {
+
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        outRect.bottom = verticalSpaceHeight
+    }
+
 }

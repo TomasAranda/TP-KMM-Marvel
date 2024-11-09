@@ -1,14 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.koltin.serialization)
 }
 
 android {
-    namespace = "com.unlam.marvel"
+    namespace = "ar.edu.unlam.marvel"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.unlam.marvel"
+        applicationId = "ar.edu.unlam.marvel"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
@@ -44,13 +45,13 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+    implementation(libs.ktor.client.android)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(project(":shared"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
