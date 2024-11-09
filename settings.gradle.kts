@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Marvel"
 include(":androidApp")
- 
+include(":shared")
