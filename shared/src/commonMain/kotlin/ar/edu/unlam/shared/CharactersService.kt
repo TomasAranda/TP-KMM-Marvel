@@ -6,17 +6,19 @@ import ar.edu.unlam.shared.HashGenerator.md5
 import io.ktor.util.date.*
 import okio.ByteString.Companion.encodeUtf8
 
-class CharactersService{
-    private val charactersRepository = CharacterRepositoryClient()
+class CharactersService(driverFactory: DatabaseDriverFactory){
+    private val charactersRepository = CharacterRepositoryClient(driverFactory)
 
-    suspend fun getCharacters(): List<Character> {
+    suspend fun getCharacters(): List<Character> = try {
         val timestamp = getTimeMillis()
-        val characters = charactersRepository.
-        getAllCharacters(
+        val characters = charactersRepository.getAllCharacters(
             timestamp,
             md5(timestamp.toString() + PRIVATE_KEY + PUBLIC_KEY)
         )
-        return sort(characters.toModel())
+        sort(characters.toModel())
+    } catch (e: Exception) {
+        // return cached results on api call failure
+        charactersRepository.getCharactersFromCache()
     }
 
     private fun sort(characters: List<Character>): List<Character> {

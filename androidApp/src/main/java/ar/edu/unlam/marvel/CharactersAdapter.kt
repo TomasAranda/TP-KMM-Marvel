@@ -2,8 +2,8 @@ package ar.edu.unlam.marvel
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import ar.edu.unlam.shared.Character
+import androidx.recyclerview.widget.RecyclerView
 import ar.edu.unlam.marvel.databinding.ListItemCharacterBinding
 
 class CharactersAdapter : RecyclerView.Adapter<CharacterViewHolder>() {

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.koltin.serialization)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -35,6 +36,9 @@ kotlin {
 
             // Coroutines
             implementation(libs.kotlinx.coroutines.core)
+
+            // SQLDelight
+            implementation(libs.sqlite.driver)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -51,5 +55,16 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+dependencies {
+    implementation(libs.sqldelight.android.driver)
+}
+
+sqldelight {
+    databases {
+        create("MarvelDatabase") {
+            packageName.set("ar.edu.unlam.shared")
+        }
     }
 }

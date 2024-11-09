@@ -2,8 +2,8 @@ package ar.edu.unlam.marvel
 
 import androidx.recyclerview.widget.RecyclerView
 import ar.edu.unlam.marvel.databinding.ListItemCharacterBinding
-import ar.edu.unlam.shared.Character
 import com.squareup.picasso.Picasso
+import ar.edu.unlam.shared.Character
 
 class CharacterViewHolder(private val binding: ListItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
 

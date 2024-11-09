@@ -3,6 +3,7 @@ package ar.edu.unlam.marvel
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
+import ar.edu.unlam.shared.Character
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +12,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import ar.edu.unlam.shared.Character
 import ar.edu.unlam.marvel.databinding.ActivityCharactersBinding
 
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ class CharactersActivity : AppCompatActivity() {
         }
 
         // Listen to Ktor response
-        val viewModel = ViewModelProvider(this, CharactersViewModelFactory())[CharactersViewModel::class.java]
+        val viewModel = ViewModelProvider(this, CharactersViewModelFactory(this))[CharactersViewModel::class.java]
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.screenState.collect {
